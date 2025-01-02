@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: BLOG # the main title
 
-tagline: My Life # it will display as the subtitle
+tagline: Life is C between B and D. # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   Life is C between B and D.
@@ -95,10 +95,10 @@ theme_mode: dark # [light | dark]
 # will be added to all media resources (site avatar, posts' images, audio and video files) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-cdn: "https://chirpy-img.netlify.app"
+# cdn: "https://chirpy-img.netlify.app"
 
 # the avatar on sidebar, support local or CORS resources
-avatar: "/commons/avatar.jpg"
+avatar: "/assets/img/deer2.jpg"
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
