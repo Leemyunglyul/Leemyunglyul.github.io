@@ -636,5 +636,283 @@ lineWidthHistogram.addline(lineSize, lineCount);
 
 프로그래머라면 각자 선호하는 규칙이 있다. 하지만 팀에 속한다면 자신이 선호해야 할 규칙은 바로 팀 규칙이다.
 
+## 6장 객체와 자료 구조
+
+> Q: 변수를 비공개`private`로 정의하는 이유가 있다. 남들이 변수에 의존하지 않게 만들고 싶어서다. 충동이든 변덕이든, 변수 타입이나 구현을 맘대로 바꾸고 싶어서다.
+그렇다면 어째서 수많은 프로그래머가 조회`get` 함수와 설정`set` 함수를 당연하게 공개`public`해 비공개 변수를 외부에 노출할까? 
+
+객체 지향 과목을 1년 전에 배우면서 공부하고 과제도 하고 시험도 쳤지만 아직도 멀게만 느껴진다. 6장을 시작하면서 책이 던진 질문은 다음과 같았다.
+이에 대한 해답은 다음과 같았다. 가장 큰 이유는 이렇지 않나 싶다. 그 변수로의 직접적인 접근은 막되, 간접적인 접근만 허용하는 것이다.
+통제된 경로로만 변수에 접근하여 비공개 변수를 외부에 노출시키지 않는다.
+
+### 자료 추상화
+
+```java
+// 구체적인 Vehicle 클래스
+public interface Vehicle{
+    double getFuelTankCapacityInGallons();
+    double getGallonsofGasoline();
+}
+
+// 추상적인 Vehicle 클래스
+public interface Vehicle{
+    double getPercentFuelRemaining();
+}
+```
+
+자료를 세세하게 공개하기보다는 추상적인 개념으로 표현하는 편이 좋다. 개발자는 객체가 포함되는 자료를 표현할 가장 좋은 방법을 심각하게
+고민해야 한다. 아무 생각 없이 조회/설정 함수를 추가하는 방법이 가장 나쁘다.
+
+### 자료/객체 비대칭
+
+객체는 추상화 뒤로 자료를 숨긴채 자료를 다루는 함수만 공개한다. 자료구조는 자료를 그대로 공개하며 별다른 함수는 제공하지 않는다.
+두 개념은 사실상 정반대다.
+
+```java
+public class Square{
+    public Point topLeft;
+    public double side;
+}
+
+public class Rectangle{
+    public Point topLeft;
+    public double height;
+    public double width;
+}
+
+public class Circle{
+    public Point center;
+    public double radius;
+}
+
+public class Geometry{
+    public final double PI = 3.141592;
+
+    public double area(Object shape) throws NoSuchShapeException{
+        if(shape instanceof Square){
+            Square s = (Square)shape;
+            return s.side * s.side;
+        }
+        else if(shape instanceof Rectangle){
+            Rectangle r = (Rectangle)shape;
+            return r.height * r.width;
+        }
+        else if(shape instanceof Circle){
+            Circle c = (Circle)shape;
+            return PI * c.radius * c.radius;
+        }
+        throw new NoSuchShapeException();
+    }
+}
+```
+
+위 코드는 절차적으로 도형을 표현하고 있다. 
+
+만약 Geomtery 클래스에 둘레 길이를 구하는 perimeter() 함수를 추가하고 싶다면 도형 클래스는 아무 영향이 없다.
+
+반대로 새 도형을 추가한다면 Geomtery 클래스에 속한 함수를 모두 고쳐야 한다.
+
+```java
+private class Square implements Shape{
+    private Point topLeft;
+    private double side;
+
+    public double area(){
+        return side * side;
+    }
+}
+
+private class Rectangle implements Shape{
+    private Point topLeft;
+    private double height;
+    private double width;
+
+    public double area(){
+        return height * width;
+    }
+}
+
+public class Circle implements Shape{
+    private Point center;
+    private double radius;
+    private final double PI = 3.141592;
+
+    public double area(){
+        return PI * radius * radius;
+    }
+}
+```
+
+이번에는 객체 지향적인 도형 클래스다. area()는 `polymorphic method`다. `Geometry class`는 필요없다.
+그러므로 새 도형을 추가해도 기존 함수에 아무런 영향을 미치지 않는다. 다만 새 함수를 추가하고 싶다면 모든 도형 클래스를 고쳐야 한다.
+
+> (자료 구조를 사용하는) 절차적인 코드는 기존 자료 구조를 변경하지 않으면서 새 함수를 추가하기 쉽다. 반면, 객제 지향 코드는
+기존 함수를 변경하지 않으면서 새 클래스를 추가하기 쉽다.
+
+### 디미터 법칙
+
+**디미터 법칙(Law of Demeter)**은 객체 지향 프로그래밍에서 **"최소한의 지식 원칙(The Principle of Least Knowledge)"**으로도 알려진 설계 지침입니다. 이 법칙은 객체 간 결합도를 낮추고 캡슐화를 강화하여 유지보수성과 유연성을 높이는 것을 목표로 합니다.
+
+핵심 개념
+
+디미터 법칙은 **"낯선 이에게 말하지 마라(Don't Talk to Strangers)"**라는 직관적인 표현으로 요약될 수 있습니다. 객체는 다음과 같은 제한된 관계 내에서만 상호작용해야 한다고 규정합니다:
+
+1. 자기 자신.
+
+2. 메서드의 매개변수로 전달된 객체.
+
+3. 메서드 내부에서 생성된 객체.
+
+4. 자신의 직접적인 구성 요소(필드).
+
+즉, 객체는 직접적으로 알고 있는 객체와만 상호작용해야 하며, 다른 객체의 내부 구조를 탐색하거나 간접적으로 접근하는 것을 피해야 합니다.
+
+```java
+class Demeter {
+    private Member member;
+
+    public myMethod(OtherObject other) {
+        // ...
+    }
+
+    public okLawOfDemeter(Paramemter param) {
+        myMethod();     // 1. 객체 자신의 메서드
+        param.paramMethod();    // 2. 메서드의 파라미터로 넘어온 객체들의 메서드
+        Local local = new Local();
+        local.localMethod();    // 3. 메서드 내부에서 생성, 초기화된 객체의 메서드
+        member.memberMethod();   // 4. 인스턴스 변수로 가지고 있는 객체가 소유한 메서드
+    }
+}
+```
+
+위반 코드:
+
+```java
+System.out.println(employee.getEnterprise().getAddress().getPostalCode());
+```
+
+위 코드는 `employee` 객체가 `enterprise`, `address` 등 여러 객체의 내부 구조를 탐색하고 있습니다. 이는 디미터 법칙을 위반하며, 결합도를 높이고 유지보수를 어렵게 만듭니다.
+
+준수 코드:
+
+```java
+System.out.println(employee.getEnterprisePostalCode());
+```
+
+위 코드는 `employee`가 `getEnterprisePostalCode()`라는 메서드를 통해 필요한 정보를 얻습니다. 내부 구조를 숨기고 메시지를 통해 상호작용하므로 디미터 법칙을 준수합니다.
+
+#### 기차 충돌(train wreck)
+
+```java
+// 기차 충돌
+final String outputDir = ctxt.getOptions().getScratchDir().getAbsolutePath();
+
+// 개선한 코드
+Options opts = ctxt.getOptions();
+File scratchDir = opts.getScratchDir();
+final String outputDir = scratchDir.getAbsolutePath();
+```
+
+위 예제가 디미터 법칙을 위반하는지 여부는 `ctxt`, `Options`, `ScratchDir`이 객체인지 아니면 자료구조인지에 달렸다.
+객체라면 내부 구조를 숨겨야 하므로 확실히 디미터 법칙을 위반한다.
+반면, 자료 구조라면 당연히 내부 구조를 노출하므로 디미터 법칙이 적용되지 않는다.
+
+#### 잡종 구조
+
+절반은 객체, 절반은 자료 구조인 잡종 구조는 피하는 것이 좋다.
+
+## 7장 오류 처리
+
+### Try-Catch-Finally 문부터 작성하라
+
+### 예외에 의미를 제공하라
+
+예외를 던질 때는 전후 상황을 충분히 덧붙인다. 그러면 오류가 발생한 원인과 위치를 찾기가 쉬워진다.
+
+오류 메시지에 정보를 담아 예외와 함께 던진다. 실패한 연산 이름과 실패 유형도 언급한다.
+
+### 호출자를 고려해 예외 클래스를 정의하라
+
+에플리케이션에서 오류를 정의할 때 프로그래머에게 가장 중요한 관심사는 오류를 잡아내는 방법이 되어야 한다.
+
+```java
+ACMEPort port = new ACMEPort(12);
+
+try{
+    port.open();
+} catch (DeviceResponseException e) {
+    reportPortError(e);
+    logger.log("Device response exception", e);
+} catch (ATM1212UnlcokedException e){
+    reportPortError(e);
+    logger.log("Unlock exception", e);
+} finally{
+    ...
+}
+```
+
+위 코드는 중복이 심하다. 위 경우는 예외 유형과 무관하게 거의 동일하다.호출하는 라이브러리 API를 감싸면서 예외 유형 하나를 반환하면 된다.
+
+```java
+LocalPort port = new LocalPort(12);
+
+try{
+    port.open();
+} catch (PortDeviceFailure e){
+    reportPortError(e);
+    logger.log(e.getMessage(), e);
+} finally {
+    ...
+}
+```
+
+흔히 예외 클래스가 하나만 있어도 충분한 코드가 많다.
+
+### 정상 흐름을 정의하라
+
+```java
+// 문제되는 코드
+try{
+    MealExpenses expenses = expenseReportDAO.getMeals(employee.getID());
+    m_total += expenses.getTotal();
+} catch(MealExpensesNotFound e){
+    m_total += getMealPerDiem();
+}
+
+// 개선한 코드
+MealExpenses expenses = expenseReportDAO.getMeals(employee.getID());
+m_total += expenses.getTotal();
+```
+
+위에서 식비를 비용으로 청구했다면 직원이 청구한 식비를 총계에 더하고 그렇지 않으면 일일 기본 식비를 총계에 더한다.
+그런데 예외가 논리를 따라가기 어렵게 만든다. 특수 상황을 처리하기보다 청구한 식비가 없다면 일일 기본 식비를 반환하는
+MealExpense 객체를 반환하게 설계한다.
+
+### NULL을 반환하거나 전달하지 마라
+
+## 8장 경계
+
+시스템에 들어가는 모든 소프트웨어를 직접 개발하는 경우는 드물다. 때로는 패키지를 사고, 때로는 오픈 소스를 이용한다.
+
+### 외부 코드 사용하기
+
+인터페이스 제공자와 인터페이스 사용자 사이에는 특유의 긴장이 존재한다. 패키지 제공자나 프레임워크 제공자는 적용성을 최대한 넓히려 애쓴다.
+반면, 사용자는 자신의 요구에 집중하는 인터페이스를 바란다.
+
+### 경계 살피고 익히기
+
+외부 코드를 사용하면 시간을 줄일 수 있다. 하지만 외부 코드를 익히기는 어렵다. 먼저 간단한 테스트 케이스를 작성해
+외부 코드를 익힌다. 짐 뉴커크는 이를 **학습 테스트**라 부른다. 학습 테스트는 프로그램에서 사용하려는 방식대로 외부 API를 호출한다.
+통제된 환경에서 API를 제대로 이해했는지 제대로 확인하려는 셈이다. 학습 테스트는 API를 사용하려는 목적에 초점을 맞춘다.
+
+### 깨끗한 경계
+
+경계에 위치하는 코드는 깔끔히 분리한다. 또한 기대치를 정의하는 테스트 케이스도 작성한다. 통제가 불가능한 외부 패키지에 의존하는 대신
+통제가 가능한 우리 코드에 의존하는 편이 훨씬 좋다.
+
+외부 패키지를 호출하는 코드를 가능한 줄여 경게를 관리하자.
+
+
+
 
 
