@@ -1,5 +1,5 @@
 ---
-title: Gof Design Pattern - Singleton
+title: GoF Design Pattern - Singleton
 date: 2025-01-11 04:00:00
 categories: [Design pattern, Creational pattern]
 tags: [design pattern, software design, creational pattern, singleton]

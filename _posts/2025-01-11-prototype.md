@@ -1,5 +1,5 @@
 ---
-title: Gof Design Pattern - Prototype
+title: GoF Design Pattern - Prototype
 date: 2025-01-11 03:00:00
 categories: [Design pattern, Creational pattern]
 tags: [design pattern, software design, creational pattern, prototype]
