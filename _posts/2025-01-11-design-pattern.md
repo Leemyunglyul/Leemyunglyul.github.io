@@ -2,7 +2,7 @@
 title: 디자인 패턴 들어가기
 date: 2025-01-11 10:31:00
 categories: [Design pattern]
-tags: [design pattern, 소프트웨어 설계]
+tags: [design pattern, software design]
 render_with_liquid: false
 ---
 

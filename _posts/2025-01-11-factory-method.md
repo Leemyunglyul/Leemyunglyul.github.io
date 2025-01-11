@@ -2,7 +2,7 @@
 title: Factory Method
 date: 2025-01-11 10:31:00
 categories: [Design pattern, Creational pattern]
-tags: [design pattern, 소프트웨어 설계, creational pattern, factory method]
+tags: [design pattern, software design, creational pattern, factory method]
 render_with_liquid: false
 ---
 
