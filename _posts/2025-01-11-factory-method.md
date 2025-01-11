@@ -12,7 +12,7 @@ render_with_liquid: false
 
 ## 구성 요소
 
-<img src='../assets/img/post/design pattern/factory_method_structure.png' alt = "image">
+![image1](https://refactoring.guru/images/patterns/diagrams/factory-method/structure-2x.png)
 
 다음의 사진이 팩토리 메서드를 잘 설명하고 있다.
 
@@ -24,7 +24,7 @@ render_with_liquid: false
 
 + ConcreteCreator/ConcreteFactory: 팩토리 메서드를 오버라이드하여 구체적인 Product 객체를 생성하는 클래스.
 
-<img src='../assets/img/post/design pattern/factory-method-diagram.webp' alt = "image">
+![image2](https://reactiveprogramming.io/_next/image?url=%2Fbooks%2Fpatterns%2Fimg%2Fpatterns-articles%2Ffactory-method-diagram.png&w=1920&q=75)
 
 실제 흐름은 위의 이미지처럼 ConcreteFactory에서 ConcreteProduct을 생성한다.
 
