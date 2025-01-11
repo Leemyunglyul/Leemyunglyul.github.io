@@ -132,7 +132,7 @@ Clicking with Logitech Mouse
 
 단점
 
-+ 패턴과 함께 새로운 인터페이스들과 클래스들이 많이 도입되기 때문에 코드가 필요 이상으로 복잡해질 수 있습니다.
++ 패턴과 함께 새로운 인터페이스들과 클래스들이 많이 도입되기 때문에 코드가 필요 이상으로 복잡해질 수 있다.
 
 ## vs Factory Method
 
@@ -155,8 +155,3 @@ Clicking with Logitech Mouse
 
 Factory Method는 **객체 생성 이후 해야 할 일**의 공통점을 정의하는 데 초점을 맞추는 반면, Abstract Factory는 생성해야 할 **객체 집합 군**의
 공통점에 초점을 맞춘다.
-
-
-
-
-
