@@ -1,5 +1,5 @@
 ---
-title: Abstract Factory
+title: Gof Design Pattern - Abstract Factory
 date: 2025-01-11 02:34:00
 categories: [Design pattern, Creational pattern]
 tags: [design pattern, software design, creational pattern, abstract factory]

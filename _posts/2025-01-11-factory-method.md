@@ -1,5 +1,5 @@
 ---
-title: Factory Method
+title: Gof Design Pattern - Factory Method
 date: 2025-01-11 02:31:00
 categories: [Design pattern, Creational pattern]
 tags: [design pattern, software design, creational pattern, factory method]
