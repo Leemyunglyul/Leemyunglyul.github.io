@@ -24,6 +24,8 @@ render_with_liquid: false
 
 + ConcreteCreator/ConcreteFactory: 팩토리 메서드를 오버라이드하여 구체적인 Product 객체를 생성하는 클래스.
 
++ Client: 객체를 생성하며, 구체적인 클래스에 의존하지 않음.
+
 ![image2](https://reactiveprogramming.io/_next/image?url=%2Fbooks%2Fpatterns%2Fimg%2Fpatterns-articles%2Ffactory-method-diagram.png&w=1920&q=75)
 
 실제 흐름은 위의 이미지처럼 ConcreteFactory에서 ConcreteProduct을 생성한다.
