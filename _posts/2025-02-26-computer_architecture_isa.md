@@ -116,9 +116,14 @@ RISC의 장점들을 살펴보자.
 
 Inter-Model Compatibility는 컴퓨터 시스템의 다양한 구성(configuration) 간에 프로그램이 정상적으로 실행될 수 있도록 보장하는 개념이다. 이는 동일한 ISA(Instruction Set Architecture)를 사용하는 시스템 간의 소프트웨어 호환성을 유지하기 위해 중요한 요소이다.
 
-`Strict program compatibility = “a valid program whose logic will not depend implicitly upon time of execution and which runs upon configuration A, will also run on configuration B if the latter includes at least the required storage, at least the required I/O devices ….”` 
+*Strict program compatibility = “a valid program whose logic will not depend implicitly upon time of execution and which runs upon configuration A, will also run on configuration B if the latter includes at least the required storage, at least the required I/O devices ….”*
 
+## RISC-V Programmar Visible State
 
+![image](https://velog.velcdn.com/images/io0818/post/d4a66c03-235e-4a78-b0b2-0f96d5740660/image.png)
+
+base register에서 x0는 항상 0임을 눈여겨봐야 한다. 이는 constant로서 0을 사용하기 위함이다. 레지스터는 총 32개이므로, 5bit로 표현가능하다.
+사실 더 많은 레지스터가 있으면, 더 flexible할 수 있으나 더 작으면 더 빠르기 때문이다.
 
 
 
