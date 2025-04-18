@@ -4,6 +4,7 @@ date: 2025-02-26 14:23:00 +0900
 categories: [Computer Science & Engineering, Computer Architecture]
 tags: [computer architecture, instruction set architecture]
 render_with_liquid: false
+published: false
 ---
 
 이번에 CS의 핵심 과목 중 하나인 '컴퓨터 구조'를 수강하며 개인적으로 기록을 해두려 한다. 오늘 포스트는 그 첫 단추인 ISA이다.
