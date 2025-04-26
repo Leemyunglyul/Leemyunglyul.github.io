@@ -1,8 +1,8 @@
 ---
 title: Swin Transformer 코드 뜯어보기
 date: 2025-04-18 00:40:00 +0900
-categories: [ai]
-tags: [ai, swin transformer]
+categories: [AI, CV]
+tags: [ai, cv,swin transformer]
 render_with_liquid: false
 ---
 
